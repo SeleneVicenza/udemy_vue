@@ -9,8 +9,13 @@
 <body>
     <div id="app">
         <h1>Hello World!!</h1>
-        <div >{{ message }}</div>
-        <button @click="handleChangeStatus">Change status</button>
+        <div>{{ message }} 
+            <br> 
+            <button @click="handleReset" v-if="edit">Reset</button>
+        </div>
+        <button @click="handleChangeStatusA">Change status A</button>
+        <button @click="handleChangeStatusB">Change status B</button>
+        <div>
     </div>
 </body>
 </html>
@@ -20,38 +25,44 @@
 
 
 <script>
- 
-  // OPTION API
-    /*  
-    const { createApp } = Vue 
-    createApp({
-        data() {
-            return {
-                message: 'Ciao Vue!'
-            }
-        },
-        methods: {
-            handleChangeStatus() {
-                this.message = 'Status changed!'
-            }
-        }
-    }).mount('#app') */
-
-  // COMPOSITION API
-   const { createApp, ref } = Vue
+   // COMPOSITION API
+   const { createApp, ref, watch } = Vue
     createApp({
         setup() {
-            const message = ref('Ciao Vue!')
+            const defMessage = 'Ciao Vue!'
+            const message = ref(defMessage)
+            const edit = ref(false)
 
-            const handleChangeStatus = () => {
-                console.log('Clicked!')
-                message.value = message.value === 'Ciao Vue!' ? 'Hi Vue !' : 'Ciao Vue!'
+            const handleChangeStatusA = () => {
+                //console.log('Clicked!')
+                message.value = "Status changed A!"
             }
-            
-        
+
+            const handleChangeStatusB = () => {
+                //console.log('Clicked!')
+                message.value = "Status changed B!"
+            }
+
+            const handleReset = () => {
+                edit.value = false;
+                message.value = defMessage;
+                
+            }
+
+            //monitora lo stato reattivo (es: message)
+            watch(message, (message, prevMessage) => {
+                console.log(`${prevMessage} => ${message}`)
+                if (message !== defMessage) {
+                    edit.value = true
+                }
+            })
+
             return {
                 message,
-                handleChangeStatus
+                handleChangeStatusA,
+                handleChangeStatusB,
+                handleReset,
+                edit
             }
         }
     }).mount('#app')

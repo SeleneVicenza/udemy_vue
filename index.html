@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Primo Esperimento</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <div id="app">{{ message }}</div>
+    <div id="app">
+        <h1>Hello World!!</h1>
+        <div >{{ message }}</div>
+        <button @click="handleChangeStatus">Change status</button>
+    </div>
 </body>
 </html>
 
@@ -17,13 +20,39 @@
 
 
 <script>
-  const { createApp } = Vue
+ 
+  // OPTION API
+    /*  
+    const { createApp } = Vue 
+    createApp({
+        data() {
+            return {
+                message: 'Ciao Vue!'
+            }
+        },
+        methods: {
+            handleChangeStatus() {
+                this.message = 'Status changed!'
+            }
+        }
+    }).mount('#app') */
 
-  createApp({
-    data() {
-      return {
-        message: 'Ciao Vue!'
-      }
-    }
-  }).mount('#app')
+  // COMPOSITION API
+   const { createApp, ref } = Vue
+    createApp({
+        setup() {
+            const message = ref('Ciao Vue!')
+
+            const handleChangeStatus = () => {
+                console.log('Clicked!')
+                message.value = message.value === 'Ciao Vue!' ? 'Hi Vue !' : 'Ciao Vue!'
+            }
+            
+        
+            return {
+                message,
+                handleChangeStatus
+            }
+        }
+    }).mount('#app')
 </script>

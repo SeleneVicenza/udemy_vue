@@ -10,6 +10,10 @@
 
 </head>
 <body>
+    <div>
+        <label for="remove">Smonta componente</label>
+        <button id="remove" >Rimuovi</button>
+    </div>
     <div id="app">
         <h1>Hello World!!</h1>
         <div>{{ message }} 
@@ -97,8 +101,22 @@
 
 <script>
    // COMPOSITION API
-   const { createApp, ref, watch, computed, reactive } = Vue
-    createApp({
+    const { 
+        createApp, 
+        ref, 
+        watch, 
+        computed, 
+        reactive, 
+        onBeforeMount, 
+        onMounted,
+        onUpdated,
+        onBeforeUnmount,
+        onUnmounted 
+    } = Vue
+
+
+
+    const app = createApp({
         setup() {
             const defMessage = 'Ciao Vue!'
             const message = ref(defMessage)
@@ -107,6 +125,14 @@
             const lastName = ref('');
             const age = ref(false);
             const error = ref(false);
+
+            onBeforeMount(() => {
+                console.log('onBeforeMount: il componente sta per essere montato nel DOM')
+            });
+
+            onMounted(() => {
+                console.log('onMounted: il componente è stato montato nel DOM')
+            });
 
             const post = reactive({ id: 1, 
                 title: 'weekend di studio', 
@@ -172,5 +198,12 @@
                 error
             }
         }
-    }).mount('#app')
+    })
+    
+    app.mount('#app')
+
+    const removeApp = () => {
+        app.unmount();
+    }
+    document.getElementById('remove').addEventListener('click', removeApp);
 </script>

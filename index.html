@@ -48,6 +48,27 @@
                 <p :style="{ color: 'red' }">Sei minorenne!</p>
             </template>
         </div>
+        <ul>
+            <li v-for="(value, key) in post" :key="key">
+                {{ key }}: {{ value }}
+            </li>
+        </ul>
+        <hr><br>
+        <ul class="list-group" v-for="post in blog" :key="post.id">
+            <li class="list-group-item ">
+                <div class="card"  >
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                    </div>
+                    <div class="card-body">
+                        
+                        <p class="card-text">{{ post.content }}</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+            
     </div>
 
 
@@ -64,7 +85,7 @@
 
 <script>
    // COMPOSITION API
-   const { createApp, ref, watch, computed } = Vue
+   const { createApp, ref, watch, computed, reactive } = Vue
     createApp({
         setup() {
             const defMessage = 'Ciao Vue!'
@@ -73,6 +94,17 @@
             const firstName = ref('');
             const lastName = ref('');
             const age = ref(false);
+
+            const post = reactive({ id: 1, 
+                title: 'weekend di studio', 
+                content: 'sto studiando Vue.js' 
+            });
+
+            const blog = ref([
+                { id: 1, title: 'studiare Vue.js', content: 'Vue.js è fantastico!' },
+                { id: 2, title: 'imparare Vue', content: 'Vue è molto interessante!' },
+                { id: 3, title: 'Composition API', content: 'La Composition API è potente e flessibile.' }
+            ]);
 
             const handleChangeStatusA = () => {
                 //console.log('Clicked!')
@@ -115,8 +147,9 @@
                 edit,
                 firstName,
                 lastName,
-                age
-                
+                age,
+                post,
+                blog
             }
         }
     }).mount('#app')

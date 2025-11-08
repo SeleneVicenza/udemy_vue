@@ -13,11 +13,23 @@
     <div id="app">
         <h1>Hello World!!</h1>
         <div>{{ message }} 
+
+            <div v-show="error">
+                <hr>
+                <p :style="{ color: 'red' }">Errore: status già impostato!</p>
+            </div>
             <br> 
             <button @click="handleReset" v-if="edit">Reset</button>
         </div>
-            <button @click="handleChangeStatusA">Change status A</button>
-            <button @click="handleChangeStatusB">Change status B</button>
+            <div @click="handleChangeStatusA">
+                Change status A
+
+                <!-- Event Modifiers: .stop per fermare la propagazione dell'evento al genitore -->
+                <div @click.stop="handleChangeStatusB">
+                    Change status B
+                </div>
+            </div>
+            
         <div>
         <div style="margin-top:20px;">
             <label for="firstName">First Name: </label>
@@ -94,6 +106,7 @@
             const firstName = ref('');
             const lastName = ref('');
             const age = ref(false);
+            const error = ref(false);
 
             const post = reactive({ id: 1, 
                 title: 'weekend di studio', 
@@ -107,12 +120,18 @@
             ]);
 
             const handleChangeStatusA = () => {
-                //console.log('Clicked!')
+                //console.log('Clicked A!')
+                if(message.value === "Status changed A!"){
+                    error.value = true;
+                    //alert();
+                    console.log("error: " + error.value)
+                    return;
+                }
                 message.value = "Status changed A!"
             }
 
             const handleChangeStatusB = () => {
-                //console.log('Clicked!')
+                console.log('Clicked B!')
                 message.value = "Status changed B!"
             }
 
@@ -149,7 +168,8 @@
                 lastName,
                 age,
                 post,
-                blog
+                blog,
+                error
             }
         }
     }).mount('#app')

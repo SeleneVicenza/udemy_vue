@@ -3,27 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gioco Base</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <script type="module" src="app.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <div id="app">{{ message }}</div>
+    <div id="game" class="card ">
+        <div class="card-header bg-primary text-white text-center">
+            <h1>Modalità: {{ nomeGioco }}</h1>
+        </div>
+        <div class="card-body">
+            <div class="card mb-3">
+                <div class="card-header text-center bg-danger text-white">
+                    Nemico ({{ enemyHealth }})
+                </div>
+                <div class="card-body ">
+                    <div class="healtbar">
+                        <div class="progress bg-success" :style="BarHealthEnemy"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header text-center bg-success text-white">
+                    IO ({{ playerHealth }})   
+                </div>
+                <div class="card-body ">
+                    <div class="healtbar">
+                        <div class="progress bg-success" :style="BarHealthPlayer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header text-center bg-secondary text-white">
+                    Azioni
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <button @click="attaccoBase" class="btn btn-primary w-100">Attacco Base</button>
+                        </div>
+                        <div class="col-6">
+                            <button 
+                                @click="attaccoSuper" 
+                                :disabled="disabilitaSspeciali" 
+                                class="btn btn-warning w-100"
+                            >
+                                Attacco Super
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button 
+                            @click="cura"
+                            :disabled="disabilitaSspeciali" 
+                            class="btn btn-success w-100"
+                        >
+                            Cura
+                        </button>
+                        </div>
+                        <div class="col-6">
+                            <button @click="fuga" class="btn btn-danger w-100">Fuga</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <h2>Round: {{ round }}</h2>
+                    <div class="d-flex justify-content-around ">
+                        <h3>Totale Partite: {{ vittorie + sconfitte }}</h3>
+                        <h3 class="text-success">Vittorie: {{ vittorie }}</h3>
+                        <h3 class="text-danger">Sconfitte: {{ sconfitte }}</h3>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="card ">
+                <div class="card-header" id="partiteRecentiHeading">
+                    <button class="btn btn-link collapsed w-100 text-start" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Partite Recenti
+                    </button>
+                </div>
+                <div class="card-body collapse" id="collapseTwo" data-bs-parent="#game">
+                    <ul class="list-group" v-if="partiteRecenti.length > 0">
+                        <li 
+                            v-for="partita in partiteRecenti" 
+                            :key="partita.id"
+                            class="list-group-item d-flex justify-content-between align-items-center"
+                        >
+                            <div>
+                                <strong :class="{
+                                    'text-success': partita.esito === 'Vittoria',
+                                    'text-danger': partita.esito === 'Sconfitta',
+                                    'text-warning': partita.esito === 'Fuga'
+                                }">{{ partita.esito }}</strong>
+                                - Round {{ partita.round }}
+                            </div>
+                            <small class="text-muted">{{ partita.data }}</small>
+                        </li>
+                    </ul>
+                    <p v-else class="text-muted text-center">Nessuna partita giocata ancora</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-
-
-
-
-
-<script>
-  const { createApp } = Vue
-
-  createApp({
-    data() {
-      return {
-        message: 'Ciao Vue!'
-      }
-    }
-  }).mount('#app')
-</script>

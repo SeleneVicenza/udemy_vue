@@ -1,0 +1,130 @@
+/* Stili globali per migliorare l'aspetto del gioco */
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.card {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:disabled {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Animazioni per le barre della salute */
+@keyframes healthBarPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.progress-bar.bg-danger {
+    animation: healthBarPulse 2s infinite;
+}
+
+/* Effetto glow per gli elementi critici */
+.badge.bg-danger {
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Miglioramenti per le statistiche */
+.text-success {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-danger {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout battaglia */
+.battle-layout {
+    position: relative;
+}
+
+.vs-separator {
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Effetto battaglia per i personaggi */
+@media (min-width: 768px) {
+    .character-battle-position {
+        transition: transform 0.3s ease;
+    }
+    
+    .character-battle-position:hover {
+        transform: translateX(-5px);
+    }
+    
+    .enemy-battle-position:hover {
+        transform: translateX(5px);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .vs-separator {
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .vs-separator {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+}

@@ -48,7 +48,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     >.
   </WelcomeItem>
 
-  <WelcomeItem>
+  <WelcomeItem titleButton="Explore the Ecosystem">
     <template #icon>
       <EcosystemIcon />
     </template>
@@ -64,7 +64,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     a visit.
   </WelcomeItem>
 
-  <WelcomeItem>
+  <WelcomeItem titleButton="Join the Community">
     <template #icon>
       <CommunityIcon />
     </template>
@@ -82,7 +82,7 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     X account for latest news in the Vue world.
   </WelcomeItem>
 
-  <WelcomeItem>
+  <WelcomeItem titleButton="Support Vue">
     <template #icon>
       <SupportIcon />
     </template>

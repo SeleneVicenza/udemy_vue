@@ -1,3 +1,15 @@
+
+<script setup>
+import UIButton from './icons/UIButton.vue'
+
+defineProps({
+  titleButton: {
+    type: String,
+    default: 'Click me'
+  }
+})
+</script>
+
 <template>
   <div class="item">
     <i>
@@ -9,6 +21,7 @@
       </h3>
       <slot></slot>
     </div>
+    <UIButton :title="titleButton"></UIButton>
   </div>
 </template>
 
